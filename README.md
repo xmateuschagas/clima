@@ -10,13 +10,9 @@ Desenvolvido com **React Native** e **TypeScript**.
 O design foi focado em harmonia visual e responsividade.  
 O layout adapta-se elegantemente desde celulares pequenos até telas Desktop, mantendo o conteúdo centralizado e legível.
 
-<img src="./assets/Tela_inicial.png" width="200" alt="Tela Inicial" />
-
-<img src="./assets/Tela_resultado.png" width="200" alt="Resultado" />
-
-<img src="./assets/Tela_erro.png" width="200" alt="Erro" />
-
----
+| Tela Inicial | Resultado | Erro |
+|--------------|-----------|------|
+| <img src="./assets/Tela_inicial.png" width="200" /> | <img src="./assets/Tela_resultado.png" width="200" /> | <img src="./assets/Tela_erro.png" width="200" /> |
 
 ## 📋 Sobre o Projeto
 
