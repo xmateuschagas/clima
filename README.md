@@ -1,50 +1,74 @@
-# Welcome to your Expo app 👋
+# ☁️ Clima
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Uma experiência meteorológica harmônica, limpa e responsiva.  
+Desenvolvido com **React Native** e **TypeScript**.
 
-## Get started
+---
 
-1. Install dependencies
+## 🎨 Galeria (UI/UX)
 
-   ```bash
-   npm install
-   ```
+O design foi focado em harmonia visual e responsividade.  
+O layout adapta-se elegantemente desde celulares pequenos até telas Desktop, mantendo o conteúdo centralizado e legível.
 
-2. Start the app
+### Tela Inicial (Vazia)
 
-   ```bash
-   npx expo start
-   ```
+### Busca Realizada
 
-In the output, you'll find options to open the app in a
+### Tratamento de Erro
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+<img src="./assets/Tela_inicial.png" width="200" alt="Tela Inicial" />
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+<img src="./assets/Tela_resultado.png" width="200" alt="Resultado" />
 
-## Get a fresh project
+<img src="./assets/Tela_erro.png" width="200" alt="Erro" />
 
-When you're ready, run:
+---
 
+## 📋 Sobre o Projeto
+
+Este aplicativo não é apenas um buscador de clima; é um exercício de **Arquitetura Limpa** e **Design System**.  
+O objetivo foi transformar uma simples requisição de API em uma interface:
+
+- agradável  
+- resiliente a erros do usuário  
+- fácil de manter e evoluir  
+
+---
+
+## 🌟 Destaques da Implementação
+
+### **Design Harmônico & Responsivo**
+Uso de um `contentWrapper` com `maxWidth` para evitar que a interface “estique” em telas grandes, preservando a estética mobile mesmo no navegador.
+
+### **Barra de Busca "Pill"**
+Input e botão agrupados em um container arredondado com sombras (`elevation` + `shadowIOS`), criando uma identidade visual moderna.
+
+### **Custom Hooks**
+Toda a lógica de estado e requisição foi extraída para o hook `useWeatherService`, mantendo a View (`index.tsx`) focada apenas em renderização.
+
+### **Sanitização de Dados**
+Tratamento de:
+
+- espaços acidentais (`trim()`)
+- caracteres especiais na URL  
+- prevenindo falhas comuns de digitação
+
+---
+
+## 🛠️ Stack Tecnológica
+
+- **Core:** React Native + Expo Router  
+- **Linguagem:** TypeScript (Interfaces estritas para `ForecastData`)  
+- **API:** Open-Meteo (Geocoding + Forecast)  
+- **Ícones:** Ionicons (`@expo/vector-icons`)  
+- **Paleta:** Tons de Azul Céu (`#E3F2FD`, `#0277BD`) + Branco  
+
+---
+
+## 🚀 Como Rodar
+
+Este projeto possui um script personalizado para execução.
+
+### Instale as dependências:
 ```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+npm install
