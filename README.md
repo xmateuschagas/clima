@@ -62,3 +62,34 @@ Este projeto possui um script personalizado para execução.
 ### Instale as dependências:
 ```bash
 npm install
+```
+### Execute o comando
+```
+npm run clima
+```
+### 🧩 Estrutura de Código
+
+Abaixo, um exemplo da organização lógica adotada no arquivo principal:
+```
+// 1. Interfaces Fortemente Tipadas
+interface ForecastData {
+  location: string;
+  temperature: number;
+  conditionCode: number;
+  // ...
+}
+
+// 2. Separação de Lógica (Hook)
+function useWeatherService() {
+  // Lógica de fetch, try/catch e estados aqui...
+  return { data, isSearching, errorMessage, handleSearch };
+}
+
+// 3. View Pura (Componente)
+export default function WeatherView() {
+  const { data } = useWeatherService();
+  return (
+    // JSX focado apenas em layout visual
+  );
+}
+```
