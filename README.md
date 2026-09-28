@@ -1,95 +1,101 @@
-# ☁️ Clima
+# Clima
 
-Uma experiência meteorológica harmônica, limpa e responsiva.  
-Desenvolvido com **React Native** e **TypeScript**.
+Aplicativo de previsão do tempo em React Native e TypeScript. O usuário digita uma cidade e recebe temperatura, condição do céu e vento, com tratamento de erro amigável e layout que funciona do celular ao navegador.
+
+Desenvolvido por **Mateus Chagas** ([LinkedIn](https://www.linkedin.com/in/mateusbchagas) · [GitHub](https://github.com/xmateuschagas)).
 
 ---
 
-## 🎨 Galeria (UI/UX)
+## Telas
 
-O design foi focado em harmonia visual e responsividade.  
-O layout adapta-se elegantemente desde celulares pequenos até telas Desktop, mantendo o conteúdo centralizado e legível.
-
-| Tela Inicial | Resultado | Erro |
-|--------------|-----------|------|
+| Inicial | Resultado | Erro |
+|---|---|---|
 | <img src="./assets/Tela_inicial.png" width="200" /> | <img src="./assets/Tela_resultado.png" width="200" /> | <img src="./assets/Tela_erro.png" width="200" /> |
 
-## 📋 Sobre o Projeto
+---
 
-Este aplicativo não é apenas um buscador de clima; é um exercício de **Arquitetura Limpa** e **Design System**.  
-O objetivo foi transformar uma simples requisição de API em uma interface:
+## Problema e proposta de valor
 
-- agradável  
-- resiliente a erros do usuário  
-- fácil de manter e evoluir  
+Consultar o clima parece simples, mas uma interface frágil quebra fácil: espaço sobrando no nome da cidade, acento, cidade inexistente, API fora do ar. O objetivo aqui foi transformar duas chamadas de API em uma experiência resiliente e fácil de manter, separando bem regra de negócio e interface.
 
 ---
 
-## 🌟 Destaques da Implementação
+## Stack tecnológica
 
-### **Design Harmônico & Responsivo**
-Uso de um `contentWrapper` com `maxWidth` para evitar que a interface “estique” em telas grandes, preservando a estética mobile mesmo no navegador.
-
-### **Barra de Busca "Pill"**
-Input e botão agrupados em um container arredondado com sombras (`elevation` + `shadowIOS`), criando uma identidade visual moderna.
-
-### **Custom Hooks**
-Toda a lógica de estado e requisição foi extraída para o hook `useWeatherService`, mantendo a View (`index.tsx`) focada apenas em renderização.
-
-### **Sanitização de Dados**
-Tratamento de:
-
-- espaços acidentais (`trim()`)
-- caracteres especiais na URL  
-- prevenindo falhas comuns de digitação
+- **Linguagem:** TypeScript (tipagem estrita da resposta com a interface `ForecastData`)
+- **Framework:** React Native + Expo (SDK 54) com Expo Router
+- **APIs:** Open-Meteo Geocoding + Open-Meteo Forecast (sem necessidade de chave)
+- **UI:** Ionicons (`@expo/vector-icons`), layout responsivo com `maxWidth`
+- **Qualidade:** ESLint (`eslint-config-expo`)
 
 ---
 
-## 🛠️ Stack Tecnológica
+## Arquitetura e fluxo de dados
 
-- **Core:** React Native + Expo Router  
-- **Linguagem:** TypeScript (Interfaces estritas para `ForecastData`)  
-- **API:** Open-Meteo (Geocoding + Forecast)  
-- **Ícones:** Ionicons (`@expo/vector-icons`)  
-- **Paleta:** Tons de Azul Céu (`#E3F2FD`, `#0277BD`) + Branco  
+```
+Usuário digita a cidade
+        │
+        ▼
+useWeatherService.handleSearch(query)
+        │  trim() + encodeURIComponent()
+        ▼
+Open-Meteo Geocoding  ──►  latitude / longitude / nome / estado / país
+        │
+        ▼
+Open-Meteo Forecast   ──►  temperatura / weathercode / vento
+        │
+        ▼
+Estado tipado (ForecastData) ──► View renderiza ícone e cor pelo weathercode
+```
+
+**Decisões técnicas**
+
+- **Custom hook (`useWeatherService`):** estado, requisições e tratamento de erro ficam fora da tela, que só renderiza.
+- **Sanitização da entrada:** remoção de espaços e codificação de caracteres especiais antes de montar a URL.
+- **Estados explícitos:** carregando, sucesso e erro tratados separadamente, com feedback visual em cada um.
+- **Mapeamento de condição climática:** função pura que converte o `weathercode` em ícone, cor e rótulo.
+- **Responsividade:** conteúdo centralizado com largura máxima, preservando a estética mobile no desktop.
 
 ---
 
-## 🚀 Como Rodar
+## Como rodar
 
-Este projeto possui um script personalizado para execução.
+### Pré-requisitos
 
-### Instale as dependências:
+- Node.js 18 ou superior
+- App Expo Go no celular, ou emulador Android/iOS, ou navegador
+
+### Passo a passo
+
 ```bash
+git clone https://github.com/xmateuschagas/clima.git
+cd clima
 npm install
+npm run clima        # equivale a: expo start
 ```
-### Execute o comando
-```
-npm run clima
-```
-### 🧩 Estrutura de Código
 
-Abaixo, um exemplo da organização lógica adotada no arquivo principal:
-```
-// 1. Interfaces Fortemente Tipadas
-interface ForecastData {
-  location: string;
-  temperature: number;
-  conditionCode: number;
-  // ...
-}
+Atalhos: `npm run android`, `npm run ios`, `npm run web`.
 
-// 2. Separação de Lógica (Hook)
-function useWeatherService() {
-  // Lógica de fetch, try/catch e estados aqui...
-  return { data, isSearching, errorMessage, handleSearch };
-}
+Não há variáveis de ambiente: a Open-Meteo é pública e não exige chave.
 
-// 3. View Pura (Componente)
-export default function WeatherView() {
-  const { data } = useWeatherService();
-  return (
-    // JSX focado apenas em layout visual
-  );
-}
+---
+
+## Estrutura
+
 ```
+app/
+├── (tabs)/index.tsx   # Tela principal + hook useWeatherService
+├── (tabs)/_layout.tsx # Navegação por abas
+└── _layout.tsx        # Layout raiz (Expo Router)
+components/            # Componentes de UI reutilizáveis
+constants/theme.ts     # Tokens de tema
+hooks/                 # Hooks de tema/cor
+assets/                # Ícones e screenshots
+```
+
+---
+
+## Autor
+
+**Mateus Chagas**, Engenheiro de Software
+[LinkedIn](https://www.linkedin.com/in/mateusbchagas) · [GitHub](https://github.com/xmateuschagas)
